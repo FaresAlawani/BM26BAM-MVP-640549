@@ -10,9 +10,7 @@ def perform_transformations(input_data, column_trans):
 
 def get_column_transformer():
     log_scale_transformer = make_pipeline(FunctionTransformer(func=np.log1p, validate=True),StandardScaler())
-
-    column_trans = ColumnTransformer( [(
-                "binned_numeric_1", KBinsDiscretizer(n_bins=10, encode='onehot-dense'),["VehAge"],),
+    column_trans = ColumnTransformer( [("binned_numeric_1", KBinsDiscretizer(n_bins=10, encode='onehot-dense'),["VehAge"],),
             ("binned_numeric_2",KBinsDiscretizer(n_bins=10, encode='onehot-dense'),["DrivAge"],),
             ("onehot_categorical",OneHotEncoder(),["VehBrand", "VehPower", "VehGas"],),
             ("log_scaled_numeric", log_scale_transformer, ["Density"]),
